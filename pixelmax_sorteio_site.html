@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PixelMax Produções | Desafio Jovem Editor</title>
+  <meta name="description" content="Página fictícia e humorística do Desafio Jovem Editor da PixelMax Produções." />
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-2: #0c1830;
+      --card: rgba(255,255,255,0.08);
+      --card-strong: rgba(255,255,255,0.12);
+      --line: rgba(255,255,255,0.14);
+      --text: #f5f7fb;
+      --muted: #c9d2e3;
+      --gold: #ffc94d;
+      --green: #57d26b;
+      --red: #ff5f57;
+      --blue: #56b6ff;
+      --shadow: 0 18px 50px rgba(0,0,0,0.35);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(86,182,255,0.18), transparent 32%),
+        radial-gradient(circle at right, rgba(87,210,107,0.12), transparent 28%),
+        linear-gradient(180deg, #08101d 0%, #0c1830 55%, #07111f 100%);
+      min-height: 100vh;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(7,17,31,0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .topbar-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 12px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: min(260px, 52vw);
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: 0.25s ease;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.07);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), #ff9f1a);
+      color: #101318;
+      box-shadow: 0 12px 30px rgba(255, 166, 0, 0.25);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 42px 0 26px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .hero-copy,
+    .hero-card,
+    .section-card,
+    .poster-card,
+    .footer-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-xl);
+    }
+
+    .hero-copy {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-copy::before {
+      content: "";
+      position: absolute;
+      inset: auto -80px -80px auto;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(255,201,77,0.22), transparent 60%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(87,210,107,0.12);
+      color: #aef0b8;
+      font-size: 0.88rem;
+      font-weight: 700;
+      border: 1px solid rgba(87,210,107,0.2);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-copy p {
+      font-size: 1.06rem;
+      line-height: 1.7;
+      color: var(--muted);
+      margin: 18px 0 0;
+      max-width: 60ch;
+    }
+
+    .highlight {
+      color: var(--gold);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .metric {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.24rem;
+      margin-bottom: 6px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .hero-card {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .disclaimer {
+      background: linear-gradient(135deg, rgba(255,95,87,0.16), rgba(255,201,77,0.14));
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 16px;
+      color: #fff6d7;
+      font-size: 0.96rem;
+      line-height: 1.55;
+    }
+
+    .disclaimer strong { color: #fff; }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .count-item {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 18px 12px;
+      text-align: center;
+    }
+
+    .count-item strong {
+      display: block;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .count-item span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .contact-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .contact-box small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .contact-box strong {
+      font-size: 1.05rem;
+      word-break: break-word;
+    }
+
+    .section {
+      padding: 22px 0;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+      letter-spacing: -0.03em;
+    }
+
+    .section-heading p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 58ch;
+      line-height: 1.65;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .section-card {
+      padding: 22px;
+      height: 100%;
+    }
+
+    .badge-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      margin-bottom: 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .section-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.15rem;
+    }
+
+    .section-card p,
+    .section-card li {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.97rem;
+    }
+
+    .section-card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .prize-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 18px;
+      padding: 26px;
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(135deg, rgba(255,201,77,0.16), rgba(255,159,26,0.12)),
+        rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,201,77,0.2);
+      box-shadow: var(--shadow);
+    }
+
+    .prize-box h3 {
+      margin: 0;
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      color: #ffe08a;
+    }
+
+    .prize-box p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .disney-mark {
+      width: min(220px, 42vw);
+      filter: brightness(0) invert(1);
+      opacity: 0.95;
+    }
+
+    .poster-card {
+      overflow: hidden;
+      padding: 18px;
+    }
+
+    .poster-card img {
+      border-radius: 18px;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .faq {
+      display: grid;
+      gap: 14px;
+    }
+
+    details {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    details p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .footer {
+      padding: 26px 0 44px;
+    }
+
+    .footer-card {
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .footer-note {
+      color: #ffdf95;
+      font-weight: 700;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-metrics,
+      .countdown {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .prize-box {
+        grid-template-columns: 1fr;
+        justify-items: start;
+      }
+
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(calc(100% - 20px), var(--max));
+      }
+
+      .hero { padding-top: 24px; }
+      .hero-copy,
+      .hero-card,
+      .section-card,
+      .poster-card,
+      .footer-card,
+      .prize-box { padding: 18px; }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .hero-metrics,
+      .countdown {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .section-heading {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .brand img {
+        width: min(220px, 68vw);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <img src="img1.png" alt="PixelMax Produções" />
+      </div>
+
+      <nav class="nav">
+        <a href="#regulamento">Regulamento</a>
+        <a href="#premiacao">Premiação</a>
+        <a href="#anuncio">Anúncio</a>
+        <a href="#faq">FAQ</a>
+        <a class="btn btn-primary" href="#inscricao">Participar</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">🎬 Desafio Jovem Editor 2026</div>
+          <h1>
+            Mostre seu talento na edição e crie um vídeo sobre a <span class="highlight">Copa do Mundo</span>
+          </h1>
+          <p>
+            A PixelMax Produções apresenta uma página para o “Desafio Jovem Editor”.
+            O objetivo é reunir criatividade, ritmo e paixão por futebol em vídeos curtos de até 1 minuto produzidos por jovens de até 14 anos.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#inscricao">Ver como participar</a>
+            <a class="btn btn-secondary" href="#anuncio">Ver anúncio oficial</a>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric">
+              <strong>Até 14 anos</strong>
+              <span>Participação voltada a jovens editores em fase inicial.</span>
+            </div>
+            <div class="metric">
+              <strong>1 minuto</strong>
+              <span>Vídeo curto, objetivo e criativo sobre o tema proposto.</span>
+            </div>
+            <div class="metric">
+              <strong>13/03</strong>
+              <span>Data limite divulgada para o envio dos projetos.</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-card" id="inscricao">
+          <div>
+            <h2 style="margin:0 0 8px; font-size:1.3rem;">Prazo de envio</h2>
+            <p style="margin:0; color:var(--muted); line-height:1.7;">
+              Os projetos devem ser enviados até <strong>13/03</strong>, conforme comunicado do desafio.
+            </p>
+          </div>
+
+          <div class="countdown" aria-label="Contagem regressiva">
+            <div class="count-item"><strong id="days">00</strong><span>Dias</span></div>
+            <div class="count-item"><strong id="hours">00</strong><span>Horas</span></div>
+            <div class="count-item"><strong id="minutes">00</strong><span>Min</span></div>
+            <div class="count-item"><strong id="seconds">00</strong><span>Seg</span></div>
+          </div>
+
+          <div class="contact-box">
+            <small>Canal de envio</small>
+            <strong>jovemeditorpixelmax@gmail.com</strong>
+          </div>
+
+          <a class="btn btn-secondary" href="#regulamento">Ler regulamento resumido</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="regulamento">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Regulamento resumido</h2>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <article class="section-card">
+            <div class="badge-icon">👤</div>
+            <h3>Quem pode participar</h3>
+            <p>
+              Jovens de até <strong>14 anos</strong>, com interesse em edição de vídeo, criatividade visual e conteúdo esportivo.
+            </p>
+          </article>
+
+          <article class="section-card">
+            <div class="badge-icon">🎥</div>
+            <h3>Formato do vídeo</h3>
+            <p>
+              O material deve ter no máximo <strong>1 minuto</strong>, com proposta dinâmica, linguagem simples e edição autoral.
+            </p>
+          </article>
+
+          <article class="section-card">
+            <div class="badge-icon">⚽</div>
+            <h3>Tema obrigatório</h3>
+            <p>
+              O conteúdo precisa ser sobre <strong>Copa do Mundo</strong>, podendo abordar emoção, história, torcida, gols ou curiosidades.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="premiacao">
+      <div class="container">
+        <div class="prize-box">
+          <div>
+            <div class="eyebrow" style="margin-bottom:14px;">🏆 Premiação destacada</div>
+            <h3>R$ 100.000 + viagem com tudo pago para a Disney</h3>
+            <p>
+              A proposta do desafio inclui prêmio em dinheiro e viagem para a Disney, com possibilidade de levar <strong>dois acompanhantes</strong>
+            </p>
+      </div>
+    </section>
+
+    <section class="section" id="anuncio">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Material visual do anúncio</h2>
+          </div>
+        </div>
+
+        <div class="poster-card">
+          <img src="img3.png" alt="Anúncio do Desafio Jovem Editor" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Critérios criativos</h2>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <article class="section-card">
+            <div class="badge-icon">✨</div>
+            <h3>Criatividade</h3>
+            <ul>
+              <li>Originalidade na montagem.</li>
+              <li>Boa escolha de cenas e trilha.</li>
+              <li>Impacto visual nos primeiros segundos.</li>
+            </ul>
+          </article>
+
+          <article class="section-card">
+            <div class="badge-icon">⏱️</div>
+            <h3>Objetividade</h3>
+            <ul>
+              <li>Respeitar o limite máximo de 1 minuto.</li>
+              <li>Mensagem clara e ritmo bem distribuído.</li>
+              <li>Abertura e finalização bem definidas.</li>
+            </ul>
+          </article>
+
+          <article class="section-card">
+            <div class="badge-icon">🎞️</div>
+            <h3>Qualidade de edição</h3>
+            <ul>
+              <li>Transições coerentes com o tema.</li>
+              <li>Legibilidade de textos na tela.</li>
+              <li>Boa sincronização entre imagem e áudio.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Perguntas frequentes</h2>
+          </div>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>Precisa ser vídeo inédito?</summary>
+            <p>Sim. Precisa ser algo inédito editado pelo participante.</p>
+          </details>
+
+          <details>
+            <summary>Posso usar celular para editar?</summary>
+            <p>Sim. A edição pode ser feita tanto em celular quanto em computador.</p>
+          </details>
+
+          <details>
+            <summary>Quantos acompanhantes podem ir para a Disney?</summary>
+            <p>O vencedor pode levar até dois acompanhantes.</p>
+          </details>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-card">
+        <div>
+          <img src="img1.png" alt="PixelMax Produções" style="width:min(220px, 56vw); border-radius:10px; margin-bottom:12px;" />
+          <p>
+            © 2026 PixelMax Produções — identidade visual de demonstração.<br>
+          </p>
+        </div>
+        <a href="#top" class="btn btn-secondary">Voltar ao topo</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const target = new Date('2026-03-13T23:59:59');
+      const days = document.getElementById('days');
+      const hours = document.getElementById('hours');
+      const minutes = document.getElementById('minutes');
+      const seconds = document.getElementById('seconds');
+
+      function pad(value) {
+        return String(value).padStart(2, '0');
+      }
+
+      function updateCountdown() {
+        const now = new Date();
+        const diff = target - now;
+
+        if (diff <= 0) {
+          days.textContent = '00';
+          hours.textContent = '00';
+          minutes.textContent = '00';
+          seconds.textContent = '00';
+          return;
+        }
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((diff / (1000 * 60)) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+
+        days.textContent = pad(d);
+        hours.textContent = pad(h);
+        minutes.textContent = pad(m);
+        seconds.textContent = pad(s);
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    })();
+  </script>
+</body>
+</html>
